@@ -3,7 +3,9 @@ import plotly.graph_objs as go
 import plotly.express as px
 import numpy as np
 
-from keras.models import load_model
+# from keras.models import load_model
+from tensorflow.keras.models import load_model
+"""Modification de l'import"""
 
 from src.get_data import GetData
 from src.utils import create_figure, prediction_from_model 
