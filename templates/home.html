@@ -11,9 +11,7 @@
 
     <h2>Traffic Rennes</h2>
     <div id="content" style="display:flex; justify-content:space-between">
-        <div id="scatter-plot" style="width:50%; height:500px;"></div>
-        
-        
+        <div id="scatter-plot" style="width:50%"></div>
 
         <div id="scatter-predict" style="width:50%">
             <h3>Prédiction d'embouteillage pour le centre ville</h3>
@@ -35,7 +33,7 @@
 
     <script>
 
-        var graphJSON = "{{ graph_json , safe }}";
+        var graphJSON = {{ graph_json | safe }};
 
         Plotly.newPlot('scatter-plot', graphJSON.data, graphJSON.layout);
         
