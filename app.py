@@ -26,13 +26,17 @@ def index():
         graph_json = fig_map.to_json()
 
         selected_hour = request.form['hour']
-
-        cat_predict = prediction_from_model(model)
+        # Vérifiez le type de selected_hour
+        # print(type(selected_hour))
+        selected_hour = int(selected_hour)
+        
+        cat_predict = prediction_from_model(model,selected_hour)
 
         color_pred_map = {0:["Prédiction : Libre", "green"], 1:["Prédiction : Dense", "orange"], 2:["Prédiction : Bloqué", "red"]}
 
         return render_template('home.html', graph_json=graph_json, text_pred=color_pred_map[cat_predict][0], color_pred=color_pred_map[cat_predict][1])
 
+    # cat_predict = prediction_from_model(model)->cat_predict = prediction_from_model(model,selected_hour)
     else:
 
         fig_map = create_figure(data)

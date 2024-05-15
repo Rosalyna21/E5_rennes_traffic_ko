@@ -15,12 +15,12 @@ def create_figure(data):
         zoom=10,
         height=500,
         mapbox_style="carto-positron")
-#manque une "," après zoom
     return fig_map
+#manque une "," après zoom
 
 def prediction_from_model(model, hour_to_predict):
 
-    input_pred = np.array([0]*25)
+    input_pred = np.array([0]*24)
     input_pred[int(hour_to_predict)] = 1
 
     cat_predict = np.argmax(model.predict(np.array([input_pred])))

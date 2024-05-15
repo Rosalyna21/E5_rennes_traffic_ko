@@ -11,10 +11,13 @@ class GetData(object):
 
     def processing_one_point(self, data_dict: dict):
 
-        temp = pd.DataFrame({key:[data_dict[key]] for key in ['datetime', 'traffic_status', 'geo_point_2d', 'averagevehiclespeed', 'traveltime', 'trafficstatus']})
-        temp = temp.rename(columns={'traffic_status':'traffic'})
-        temp['lat'] = temp.geo_point_2d.map(lambda x : x['lattitude'])
-        temp['lon'] = temp.geo_point_2d.map(lambda x : x['longitude'])
+        temp = pd.DataFrame({key:[data_dict[key]] for key in ['datetime', 'geo_point_2d', 'averagevehiclespeed', 'traveltime', 'trafficstatus']})
+        #modification supprimé traffic_status
+        temp = temp.rename(columns={'trafficstatus':'traffic'})
+        #modification de la clé
+        temp['lat'] = temp.geo_point_2d.map(lambda x : x['lat'])
+        temp['lon'] = temp.geo_point_2d.map(lambda x : x['lon'])
+        #modification de latitude en lat et longitude en lon
         del temp['geo_point_2d']
 
         return temp
