@@ -26,6 +26,7 @@ data = data_retriever()
 
 model = load_model('model.h5') 
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
@@ -49,6 +50,51 @@ def index():
         graph_json = fig_map.to_json()
 
         return render_template('home.html', graph_json=graph_json)
+
+# import psutil
+
+# @dashboard.app.route('/dashboard/custom_alerts')
+# def custom_alerts():
+#     # Check CPU and Memory usage
+#     cpu_usage = psutil.cpu_percent(interval=1)
+#     memory_info = psutil.virtual_memory()
+#     memory_usage = memory_info.percent
+
+#     alerts = []
+#     if cpu_usage > 80:
+#         alerts.append(f"High CPU usage detected: {cpu_usage}%")
+#     if memory_usage > 75:
+#         alerts.append(f"High Memory usage detected: {memory_usage}%")
+
+#     return dashboard.blueprints.utils.make_json_response(alerts)
+
+# # Register the custom alert function
+# dashboard.config.add_custom_alert('custom_alerts', '/dashboard/custom_alerts')
+
+# import logging
+# from logging.handlers import RotatingFileHandler
+
+# handler = RotatingFileHandler('flask_monitoring.log', maxBytes=10000, backupCount=1)
+# handler.setLevel(logging.WARNING)
+# app.logger.addHandler(handler)
+
+# @dashboard.app.route('/dashboard/check_thresholds')
+# def check_thresholds():
+#     response_time = dashboard.data.get_response_time()
+#     error_rate = dashboard.data.get_error_rate()
+#     requests_per_second = dashboard.data.get_requests_per_second()
+
+#     if response_time > 500:
+#         app.logger.warning(f"High response time detected: {response_time}ms")
+#     if error_rate > 1:
+#         app.logger.warning(f"High error rate detected: {error_rate}%")
+#     if requests_per_second > 10:
+#         app.logger.warning(f"High requests per second detected: {requests_per_second}rps")
+
+#     return "Thresholds checked."
+
+# # Register the check thresholds function
+# dashboard.config.add_custom_alert('check_thresholds', '/dashboard/check_thresholds')
 
 dashboard.bind(app)
 
