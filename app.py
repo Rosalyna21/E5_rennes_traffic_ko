@@ -17,12 +17,15 @@ from email.mime.text import MIMEText
 
 from src.get_data import GetData
 from src.utils import create_figure, prediction_from_model
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 dashboard.config.init_from(file='config.cfg')
 
-data_url = "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/etat-du-trafic-en-temps-reel/exports/json?lang=fr&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B&apikey=51fc720694959be3dee39ba8e515826ab669377a28f3f79227970508"
+data_url =  os.getenv("URL_data_API")
 
 model_path = 'model.h5'
 
@@ -93,13 +96,13 @@ def index():
     
 @app.route('/send-email')
 def send_email():
-    name = "Jean"
+    name =  os.getenv("NAME")
     HOST = "smtp-mail.outlook.com"
     PORT = 587
 
-    FROM_EMAIL = "rennesapplication@outlook.fr"
-    TO_EMAIL = 'aude.bouchonnet@laposte.net'
-    PASSWORD = "AzErTy159753!"
+    FROM_EMAIL = os.getenv("MAIL_APPLI")
+    TO_EMAIL = os.getenv("MAIL_DESTINATAIRE")
+    PASSWORD = os.getenv("PASSWORD")
 
     message = MIMEMultipart("alternative")
     message['Subject'] = "testing"
